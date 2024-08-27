@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.parcel;
+package com.duongprj.logistic_service.dto.parcel.response;
 
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import com.duongprj.logistic_service.enums.Region;

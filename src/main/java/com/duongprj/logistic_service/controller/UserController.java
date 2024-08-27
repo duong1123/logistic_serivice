@@ -1,9 +1,9 @@
 package com.duongprj.logistic_service.controller;
 
 import com.duongprj.logistic_service.dto.common.ApiResponse;
-import com.duongprj.logistic_service.dto.request.UserCreationRequest;
-import com.duongprj.logistic_service.dto.request.UserUpdateRequest;
-import com.duongprj.logistic_service.dto.response.UserResponse;
+import com.duongprj.logistic_service.dto.user.request.UserCreationRequest;
+import com.duongprj.logistic_service.dto.user.response.UserUpdateRequest;
+import com.duongprj.logistic_service.dto.user.request.UserResponse;
 import com.duongprj.logistic_service.entity.User;
 import com.duongprj.logistic_service.service.UserService;
 import jakarta.validation.Valid;

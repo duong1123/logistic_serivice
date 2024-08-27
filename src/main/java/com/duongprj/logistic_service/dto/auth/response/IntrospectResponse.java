@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.auth;
+package com.duongprj.logistic_service.dto.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class IntrospectRequest {
-    String token;
+public class IntrospectResponse {
+    boolean valid;
 }

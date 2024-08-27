@@ -1,10 +1,10 @@
 package com.duongprj.logistic_service.service;
 
-import com.duongprj.logistic_service.dto.request.UpdateStaffRequest;
-import com.duongprj.logistic_service.dto.request.WorkUnitCreationRequest;
-import com.duongprj.logistic_service.dto.request.WorkUnitUpdateRequest;
-import com.duongprj.logistic_service.dto.response.UserResponse;
-import com.duongprj.logistic_service.dto.response.WorkUnitResponse;
+import com.duongprj.logistic_service.dto.user.request.UpdateStaffRequest;
+import com.duongprj.logistic_service.dto.workunit.request.WorkUnitCreationRequest;
+import com.duongprj.logistic_service.dto.workunit.request.WorkUnitUpdateRequest;
+import com.duongprj.logistic_service.dto.user.request.UserResponse;
+import com.duongprj.logistic_service.dto.workunit.response.WorkUnitResponse;
 import com.duongprj.logistic_service.entity.User;
 import com.duongprj.logistic_service.entity.WorkUnit;
 import com.duongprj.logistic_service.exception.AppException;

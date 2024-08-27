@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.request;
+package com.duongprj.logistic_service.dto.user.request;
 
 import com.duongprj.logistic_service.dto.common.ContactInfoDto;
 import jakarta.validation.constraints.Size;

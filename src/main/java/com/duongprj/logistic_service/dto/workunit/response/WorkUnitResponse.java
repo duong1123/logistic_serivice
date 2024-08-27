@@ -1,10 +1,11 @@
-package com.duongprj.logistic_service.dto.request;
+package com.duongprj.logistic_service.dto.workunit.response;
 
 import com.duongprj.logistic_service.enums.Region;
 import com.duongprj.logistic_service.enums.UnitType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
@@ -12,14 +13,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class WorkUnitUpdateRequest {
+public class WorkUnitResponse {
+    String id;
     String name;
     String code;
     String address;
-
-    @Enumerated(EnumType.STRING)
     UnitType type;
-
-    @Enumerated(EnumType.STRING)
     Region region;
 }

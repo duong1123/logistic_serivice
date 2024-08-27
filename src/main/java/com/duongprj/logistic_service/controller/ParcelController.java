@@ -1,9 +1,9 @@
 package com.duongprj.logistic_service.controller;
 
 import com.duongprj.logistic_service.dto.common.ApiResponse;
-import com.duongprj.logistic_service.dto.parcel.ParcelCreationRequest;
-import com.duongprj.logistic_service.dto.parcel.ParcelResponse;
-import com.duongprj.logistic_service.dto.parcel.TrackingResponse;
+import com.duongprj.logistic_service.dto.parcel.request.ParcelCreationRequest;
+import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
+import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.enums.TrackingCode;
 import com.duongprj.logistic_service.service.ParcelService;
 import com.duongprj.logistic_service.service.StaffService;

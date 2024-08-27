@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.parcel;
+package com.duongprj.logistic_service.dto.parcel.request;
 
 import com.duongprj.logistic_service.enums.ServiceType;
 import com.duongprj.logistic_service.model.ContactInfo;

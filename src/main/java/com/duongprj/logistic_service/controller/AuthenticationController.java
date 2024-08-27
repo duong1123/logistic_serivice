@@ -1,8 +1,8 @@
 package com.duongprj.logistic_service.controller;
 
 import com.duongprj.logistic_service.dto.common.ApiResponse;
-import com.duongprj.logistic_service.dto.auth.AuthenticationRequest;
-import com.duongprj.logistic_service.dto.auth.AuthenticationResponse;
+import com.duongprj.logistic_service.dto.auth.request.AuthenticationRequest;
+import com.duongprj.logistic_service.dto.auth.response.AuthenticationResponse;
 import com.duongprj.logistic_service.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -1,9 +1,9 @@
 package com.duongprj.logistic_service.service;
 
-import com.duongprj.logistic_service.dto.auth.AuthenticationRequest;
-import com.duongprj.logistic_service.dto.auth.IntrospectRequest;
-import com.duongprj.logistic_service.dto.auth.AuthenticationResponse;
-import com.duongprj.logistic_service.dto.auth.IntrospectResponse;
+import com.duongprj.logistic_service.dto.auth.request.AuthenticationRequest;
+import com.duongprj.logistic_service.dto.auth.request.IntrospectRequest;
+import com.duongprj.logistic_service.dto.auth.response.AuthenticationResponse;
+import com.duongprj.logistic_service.dto.auth.response.IntrospectResponse;
 import com.duongprj.logistic_service.entity.User;
 import com.duongprj.logistic_service.exception.AppException;
 import com.duongprj.logistic_service.exception.ErrorCode;

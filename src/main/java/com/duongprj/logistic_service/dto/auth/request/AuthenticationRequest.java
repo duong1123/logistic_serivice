@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.auth;
+package com.duongprj.logistic_service.dto.auth.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

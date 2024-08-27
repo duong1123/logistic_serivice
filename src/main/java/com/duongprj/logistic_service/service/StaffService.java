@@ -1,6 +1,6 @@
 package com.duongprj.logistic_service.service;
 
-import com.duongprj.logistic_service.dto.parcel.ParcelResponse;
+import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
 import com.duongprj.logistic_service.entity.Parcel;
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import com.duongprj.logistic_service.entity.User;
@@ -11,8 +11,6 @@ import com.duongprj.logistic_service.repository.UserRepository;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,6 @@ import java.time.Instant;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @PreAuthorize("hasRole('STAFF')")
 public class StaffService {
-    private static final Logger log = LoggerFactory.getLogger(StaffService.class);
     ParcelRepository parcelRepository;
     UserRepository userRepository;
     ParcelMapper parcelMapper;

@@ -1,9 +1,9 @@
 package com.duongprj.logistic_service.mapper;
 
-import com.duongprj.logistic_service.dto.parcel.ParcelCreationRequest;
-import com.duongprj.logistic_service.dto.parcel.ParcelResponse;
-import com.duongprj.logistic_service.dto.parcel.TrackingRecordResponse;
-import com.duongprj.logistic_service.dto.parcel.TrackingResponse;
+import com.duongprj.logistic_service.dto.parcel.request.ParcelCreationRequest;
+import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
+import com.duongprj.logistic_service.dto.parcel.response.TrackingRecordResponse;
+import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.entity.Parcel;
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import org.mapstruct.Mapper;
