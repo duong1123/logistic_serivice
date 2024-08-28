@@ -24,7 +24,6 @@ public class Parcel {
     @GenericGenerator(name = "parcel-id-generator", strategy = "com.duongprj.logistic_service.utils.ParcelIdGenerator")
     String id;
     String creatorUsername;
-    String batchId;
     Instant createdTime;
     @Embedded
     @AttributeOverrides({
@@ -46,11 +45,11 @@ public class Parcel {
     })
     ContactInfo deliveryAddress;
     boolean pickupTime;
-    TrackingCode currentStatus;
     Instant actualPickupTime;
     ServiceType serviceType;
     boolean coCheck;
     boolean isPaid;
+    boolean isInBatch;
     boolean pickupOption;
     boolean isCancelled;
     Instant deliveryTime;

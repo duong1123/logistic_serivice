@@ -18,11 +18,16 @@ public interface ParcelRepository extends JpaRepository<Parcel, String> {
     @Query("SELECT p.creatorUsername FROM Parcel p WHERE p.id = :id")
     String findCreatorUsernameById(String id);
 
-    @Query("SELECT p FROM Parcel p WHERE p.id = :id")
-    Parcel findParcelById(String id);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Parcel p SET p.isInBatch = true WHERE p.id = :id")
+    void setParcelInBatch(String id);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Parcel p SET p.currentStatus = :trackingCode, p.pickupTime = :pickupTime, p.actualPickupTime = :pickupTime WHERE p.id = :id")
-    void changeCurrentStatus(String id, TrackingCode trackingCode, Instant pickupTime);
+    @Query("UPDATE Parcel p SET p.isInBatch = false WHERE p.id = :id")
+    void setParcelNotInBatch(String id);
+
+    @Query("SELECT p.isInBatch FROM Parcel p WHERE p.id = :id")
+    boolean checkParcelInBatch(String id);
 }

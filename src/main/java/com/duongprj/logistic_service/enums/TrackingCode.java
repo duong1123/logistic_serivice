@@ -7,6 +7,7 @@ public enum TrackingCode {
     F000("Manifested"),
     F098("Drop off done"),
     F100("Picked up"),
+    F300("Batch created"),
     F440("Enter DEP hub"),
     F450("Left DEP hub"),
     F510("Enter Sorting center"),
@@ -23,8 +24,4 @@ public enum TrackingCode {
     }
 
     private final String description;
-
-    public String getDescription() {
-        return description;
-    }
 }

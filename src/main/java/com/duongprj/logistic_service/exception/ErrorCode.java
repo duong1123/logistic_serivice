@@ -16,6 +16,8 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, "Unauthorized", HttpStatus.FORBIDDEN),
     UNIT_EXISTED(1008, "This unit is already existed", HttpStatus.BAD_REQUEST),
     UNIT_NOT_EXISTED(1009, "This unit does not exist", HttpStatus.NOT_FOUND),
+    PARCEL_CANCELLED(1010, "This parcel has been cancelled", HttpStatus.BAD_REQUEST),
+    PARCEL_ALREADY_IN_ANOTHER_BATCH(1011, "This parcel is already in another batch", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

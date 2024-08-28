@@ -29,4 +29,18 @@ public class DatabaseUtils {
         }
         return lastId;
     }
+
+    public String getLastBatchId() {
+        String lastId = null;
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT id FROM batch ORDER BY id DESC LIMIT 1")) {
+            if (resultSet.next()) {
+                lastId = resultSet.getString("id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
 }

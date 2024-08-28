@@ -1,10 +1,7 @@
-package com.duongprj.logistic_service.dto.parcel.response;
+package com.duongprj.logistic_service.dto.batch.response;
 
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import com.duongprj.logistic_service.enums.Region;
-import com.duongprj.logistic_service.enums.ServiceType;
-import com.duongprj.logistic_service.enums.TrackingCode;
-import com.duongprj.logistic_service.model.ContactInfo;
 import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,23 +17,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ParcelResponse {
+public class BatchResponse {
     String id;
-    String creatorUsername;
+    String origin;
+    String destination;
     Instant createdTime;
-    ContactInfo pickupAddress;
-    ContactInfo deliveryAddress;
-    boolean pickupTime;
-    Instant actualPickupTime;
-    ServiceType serviceType;
-    boolean coCheck;
-    boolean isPaid;
-    boolean pickupOption;
-    boolean isCancelled;
-    Instant deliveryTime;
+    Instant departureTime;
+    Instant unbachedTime;
     int weight;
-    Region originRegion;
-    Region destinationRegion;
+    int parcelCount;
+    String path;
+    Region arrivalRegion;
 
     @ElementCollection
     List<TrackingRecord> records;
@@ -44,3 +35,4 @@ public class ParcelResponse {
     @ElementCollection
     List<String> parcelIds;
 }
+

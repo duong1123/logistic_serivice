@@ -38,56 +38,56 @@ public class ParcelController {
     @PostMapping("/pick_up/{id}")
     public ApiResponse<ParcelResponse> pickedUp(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F100, Instant.now(), null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F100, Instant.now(), null))
                 .build();
     }
 
     @PostMapping("/drop_off_done/{id}")
     public ApiResponse<ParcelResponse> receivedAtPO(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F098, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F098, null, null))
                 .build();
     }
 
     @PostMapping("/dep_hub_arrived/{id}")
     public ApiResponse<ParcelResponse> arrivedDepHub(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F440, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F440, null, null))
                 .build();
     }
 
     @PostMapping("/dep_hub_left/{id}")
     public ApiResponse<ParcelResponse> leftDepHub(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F450, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F450, null, null))
                 .build();
     }
 
     @PostMapping("/soc_received/{id}")
     public ApiResponse<ParcelResponse> enterSortingCenter(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F510, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F510, null, null))
                 .build();
     }
 
     @PostMapping("/soc_left/{id}")
     public ApiResponse<ParcelResponse> leftSortingCenter(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F540, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F540, null, null))
                 .build();
     }
 
     @PostMapping("/arr_hub_received/{id}")
     public ApiResponse<ParcelResponse> enterArrHub(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F599, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F599, null, null))
                 .build();
     }
 
     @PostMapping("/out_deli/{id}")
     public ApiResponse<ParcelResponse> delivery(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F600, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F600, null, null))
                 .build();
     }
 
@@ -95,14 +95,14 @@ public class ParcelController {
     public ApiResponse<ParcelResponse> delivered(@PathVariable String id) {
 
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F980, null, Instant.now()))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F980, null, Instant.now()))
                 .build();
     }
 
     @PostMapping("/deli_failed/{id}")
     public ApiResponse<ParcelResponse> deliFail(@PathVariable String id) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(staffService.addParcelRecord(id, TrackingCode.F981, null, null))
+                .response(parcelService.addParcelRecord(id, TrackingCode.F981, null, null))
                 .build();
     }
 

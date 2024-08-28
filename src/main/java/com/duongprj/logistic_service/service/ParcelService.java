@@ -5,10 +5,15 @@ import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
 import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.entity.Parcel;
 import com.duongprj.logistic_service.entity.TrackingRecord;
+import com.duongprj.logistic_service.entity.User;
 import com.duongprj.logistic_service.enums.Region;
 import com.duongprj.logistic_service.enums.TrackingCode;
+import com.duongprj.logistic_service.exception.AppException;
+import com.duongprj.logistic_service.exception.ErrorCode;
 import com.duongprj.logistic_service.mapper.ParcelMapper;
 import com.duongprj.logistic_service.repository.ParcelRepository;
+import com.duongprj.logistic_service.repository.UserRepository;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class ParcelService {
+    UserRepository userRepository;
     ParcelRepository parcelRepository;
     ParcelMapper parcelMapper;
 
@@ -31,7 +37,6 @@ public class ParcelService {
         var name = context.getAuthentication().getName();
 
         Parcel parcel = parcelMapper.toParcel(request);
-        parcel.setCurrentStatus(TrackingCode.F000);
         parcel.setCreatorUsername(name);
         parcel.setCreatedTime(Instant.now());
         parcel.setOriginRegion(Region.getRegionByProvince(parcel.getPickupAddress().getProvince()));
@@ -65,10 +70,49 @@ public class ParcelService {
         return parcelMapper.toParcelResponse(updatedParcel);
     }
 
-
     public TrackingResponse getTrackingResponseById(String id) {
         Parcel parcel = parcelRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parcel not found!"));
         return parcelMapper.toTrackingResponse(parcel);
+    }
+
+    @PreAuthorize("hasRole('STAFF')")
+    public ParcelResponse addParcelRecord(String parcelId, TrackingCode code, @Nullable Instant actualPickup, @Nullable Instant actualDelivery) {
+        var context = SecurityContextHolder.getContext();
+        var name = context.getAuthentication().getName();
+
+        Parcel parcel = parcelRepository.findById(parcelId)
+                .orElseThrow(() -> new RuntimeException("Parcel not found!"));
+
+        if (parcel.isCancelled()) {
+            throw new AppException(ErrorCode.PARCEL_CANCELLED);
+        }
+
+        var currentTime = Instant.now();
+        TrackingRecord record = new TrackingRecord(
+                code,
+                currentTime,
+                name,
+                getStaffUnitCode(name)
+        );
+
+        if (actualPickup != null) {
+            parcel.setActualPickupTime(actualPickup);
+        }
+
+        if (actualDelivery != null) {
+            parcel.setDeliveryTime(actualDelivery);
+        }
+
+        parcel.getRecords().add(record);
+        parcelRepository.save(parcel);
+
+        return parcelMapper.toParcelResponse(parcel);
+    }
+
+    public String getStaffUnitCode(String username) {
+        return userRepository.findByUsername(username)
+                .map(User::getWorkUnit)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
     }
 }

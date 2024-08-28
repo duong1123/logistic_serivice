@@ -34,6 +34,7 @@ public class ParcelCreationRequest {
             @AttributeOverride(name = "ward", column = @jakarta.persistence.Column(name = "recipient_ward"))
     })
     ContactInfo deliveryAddress;
+    boolean pickupTime;
     ServiceType serviceType;
     boolean coCheck;
     boolean isPaid;
