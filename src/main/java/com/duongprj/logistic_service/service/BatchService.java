@@ -5,7 +5,9 @@ import com.duongprj.logistic_service.dto.batch.request.BatchCreationRequest;
 import com.duongprj.logistic_service.dto.batch.request.BatchModifyRequest;
 import com.duongprj.logistic_service.dto.batch.response.BatchAddParcelResponse;
 import com.duongprj.logistic_service.dto.batch.response.BatchResponse;
+import com.duongprj.logistic_service.dto.batch.response.BatchTrackingResponse;
 import com.duongprj.logistic_service.entity.Batch;
+import com.duongprj.logistic_service.entity.Parcel;
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import com.duongprj.logistic_service.entity.User;
 import com.duongprj.logistic_service.enums.Region;
@@ -124,6 +126,7 @@ public class BatchService {
         for (String parcelId : parcelIds) {
             parcelRepository.setParcelInBatch(parcelId);
         }
+
         // Update weight and parcel count
         int addedWeight = parcelIds.stream()
                 .mapToInt(parcelRepository::getParcelWeight)
@@ -137,6 +140,33 @@ public class BatchService {
         return batchMapper.toBatchAddParcelResponse(batch);
     }
 
+    public BatchTrackingResponse addTrackingRecord(BatchModifyRequest request, TrackingCode code){
+        String batchId = request.getBatchId();
+        Batch batch = batchRepository.findById(batchId)
+                .orElseThrow(() -> new RuntimeException("Batch not found!"));
 
+        var context = SecurityContextHolder.getContext();
+        var name = context.getAuthentication().getName();
+
+        TrackingRecord record = new TrackingRecord(
+                code,
+                Instant.now(),
+                name,
+                getStaffUnitCode(name)
+        );
+        batch.getRecords().add(record);
+
+        // Update Tracking Record for each parcel in batch
+        for (String parcelId : batch.getParcelIds()) {
+            Parcel parcel = parcelRepository.findById(parcelId)
+                    .orElseThrow(() -> new RuntimeException("Parcel not found!"));
+            parcel.getRecords().add(record);
+            parcelRepository.save(parcel);
+        }
+
+        batchRepository.save(batch);
+
+        return batchMapper.toBatchTrackingResponse(batch);
+    }
 
 }
