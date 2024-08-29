@@ -1,7 +1,6 @@
 package com.duongprj.logistic_service.entity;
 import com.duongprj.logistic_service.enums.Region;
 import com.duongprj.logistic_service.enums.ServiceType;
-import com.duongprj.logistic_service.enums.TrackingCode;
 import com.duongprj.logistic_service.model.ContactInfo;
 import jakarta.persistence.*;
 import lombok.*;

@@ -3,7 +3,6 @@ package com.duongprj.logistic_service.dto.parcel.response;
 import com.duongprj.logistic_service.entity.TrackingRecord;
 import com.duongprj.logistic_service.enums.Region;
 import com.duongprj.logistic_service.enums.ServiceType;
-import com.duongprj.logistic_service.enums.TrackingCode;
 import com.duongprj.logistic_service.model.ContactInfo;
 import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;

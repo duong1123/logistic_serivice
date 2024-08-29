@@ -1,6 +1,5 @@
 package com.duongprj.logistic_service.exception;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

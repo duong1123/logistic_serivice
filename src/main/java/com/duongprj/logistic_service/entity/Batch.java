@@ -27,7 +27,7 @@ public class Batch {
     String origin;
     String destination;
     Instant createdTime;
-    Instant departureTime;
+    //Instant departureTime;
     Instant unbatchedTime;
     int weight;
     int parcelCount;

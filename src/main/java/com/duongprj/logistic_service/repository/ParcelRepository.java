@@ -1,13 +1,11 @@
 package com.duongprj.logistic_service.repository;
 
 import com.duongprj.logistic_service.entity.Parcel;
-import com.duongprj.logistic_service.enums.TrackingCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 
 public interface ParcelRepository extends JpaRepository<Parcel, String> {
     @Modifying
@@ -30,4 +28,7 @@ public interface ParcelRepository extends JpaRepository<Parcel, String> {
 
     @Query("SELECT p.isInBatch FROM Parcel p WHERE p.id = :id")
     boolean checkParcelInBatch(String id);
+
+    @Query("SELECT p.weight FROM Parcel p WHERE p.id = :id")
+    int getParcelWeight(String id);
 }

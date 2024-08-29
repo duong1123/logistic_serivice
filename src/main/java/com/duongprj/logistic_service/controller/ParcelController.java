@@ -6,7 +6,6 @@ import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
 import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.enums.TrackingCode;
 import com.duongprj.logistic_service.service.ParcelService;
-import com.duongprj.logistic_service.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import java.time.Instant;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class ParcelController {
     ParcelService parcelService;
-    private final StaffService staffService;
 
     @PostMapping("/create")
     public ApiResponse<ParcelResponse> createParcel(@RequestBody ParcelCreationRequest request) {

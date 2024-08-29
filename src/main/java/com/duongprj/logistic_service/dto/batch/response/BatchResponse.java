@@ -22,7 +22,7 @@ public class BatchResponse {
     String origin;
     String destination;
     Instant createdTime;
-    Instant departureTime;
+    //Instant departureTime;
     Instant unbachedTime;
     int weight;
     int parcelCount;

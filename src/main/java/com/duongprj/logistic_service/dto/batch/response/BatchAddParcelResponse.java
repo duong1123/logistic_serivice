@@ -1,4 +1,4 @@
-package com.duongprj.logistic_service.dto.batch.request;
+package com.duongprj.logistic_service.dto.batch.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,8 +10,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BatchCreationRequest {
-    String destination;
+public class BatchAddParcelResponse {
+    String batchId;
+    List<String> parcelId;
+    int parcelCount;
     int weight;
-    List<String> parcelIds;
 }

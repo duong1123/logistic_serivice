@@ -10,8 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BatchCreationRequest {
-    String destination;
-    int weight;
-    List<String> parcelIds;
+public class BatchAddParcelRequest {
+    String batchId;
+    List<String> parcelId;
 }

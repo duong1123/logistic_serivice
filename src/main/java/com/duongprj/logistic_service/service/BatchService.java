@@ -1,7 +1,9 @@
 package com.duongprj.logistic_service.service;
 
+import com.duongprj.logistic_service.dto.batch.request.BatchAddParcelRequest;
 import com.duongprj.logistic_service.dto.batch.request.BatchCreationRequest;
 import com.duongprj.logistic_service.dto.batch.request.BatchModifyRequest;
+import com.duongprj.logistic_service.dto.batch.response.BatchAddParcelResponse;
 import com.duongprj.logistic_service.dto.batch.response.BatchResponse;
 import com.duongprj.logistic_service.entity.Batch;
 import com.duongprj.logistic_service.entity.TrackingRecord;
@@ -11,7 +13,6 @@ import com.duongprj.logistic_service.enums.TrackingCode;
 import com.duongprj.logistic_service.exception.AppException;
 import com.duongprj.logistic_service.exception.ErrorCode;
 import com.duongprj.logistic_service.mapper.BatchMapper;
-import com.duongprj.logistic_service.mapper.ParcelMapper;
 import com.duongprj.logistic_service.repository.BatchRepository;
 import com.duongprj.logistic_service.repository.ParcelRepository;
 import com.duongprj.logistic_service.repository.UserRepository;
@@ -24,13 +25,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @PreAuthorize("hasRole('STAFF')")
 public class BatchService {
-    ParcelMapper parcelMapper;
     ParcelRepository parcelRepository;
     UserRepository userRepository;
     BatchMapper batchMapper;
@@ -92,6 +93,7 @@ public class BatchService {
         }
         batch.setUnbatchedTime(Instant.now());
         batch.setUnBatched(true);
+
         batchRepository.save(batch);
 
         return batchMapper.toBatchResponse(batch);
@@ -102,6 +104,39 @@ public class BatchService {
                 .map(User::getWorkUnit)
                 .orElseThrow(() -> new RuntimeException("User not found!"));
     }
+
+    public BatchAddParcelResponse addParcelToBatch(BatchAddParcelRequest request){
+        String batchId = request.getBatchId();
+        Batch batch = batchRepository.findById(batchId)
+                .orElseThrow(() -> new RuntimeException("Batch not found!"));
+
+        List<String> parcelIds = request.getParcelId();
+        for (String parcelId : parcelIds) {
+            var isInBatch = parcelRepository.checkParcelInBatch(parcelId);
+            if (isInBatch) {
+                throw new AppException(
+                        ErrorCode.PARCEL_ALREADY_IN_ANOTHER_BATCH,
+                        parcelId
+                );
+            }
+        }
+
+        for (String parcelId : parcelIds) {
+            parcelRepository.setParcelInBatch(parcelId);
+        }
+        // Update weight and parcel count
+        int addedWeight = parcelIds.stream()
+                .mapToInt(parcelRepository::getParcelWeight)
+                .sum();
+        batch.setWeight(batch.getWeight() + addedWeight);
+        batch.setParcelCount(batch.getParcelCount() + parcelIds.size());
+        batch.getParcelIds().addAll(parcelIds);
+
+        batchRepository.save(batch);
+
+        return batchMapper.toBatchAddParcelResponse(batch);
+    }
+
 
 
 }
