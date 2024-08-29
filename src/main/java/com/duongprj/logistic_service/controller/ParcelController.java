@@ -2,6 +2,7 @@ package com.duongprj.logistic_service.controller;
 
 import com.duongprj.logistic_service.dto.common.ApiResponse;
 import com.duongprj.logistic_service.dto.parcel.request.ParcelCreationRequest;
+import com.duongprj.logistic_service.dto.parcel.request.ParcelModifyRequest;
 import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
 import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.enums.TrackingCode;
@@ -26,86 +27,88 @@ public class ParcelController {
                 .build();
     }
 
-    @PostMapping("/cancel/{id}")
-    public ApiResponse<ParcelResponse> cancelParcel(@PathVariable String id) {
+    @PostMapping("/cancel")
+    public ApiResponse<ParcelResponse> cancelParcel(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.cancelParcel(id))
+                .response(parcelService.cancelParcel(request))
                 .build();
     }
 
-    @PostMapping("/pick_up/{id}")
-    public ApiResponse<ParcelResponse> pickedUp(@PathVariable String id) {
+    @PostMapping("/pick_up")
+    public ApiResponse<ParcelResponse> pickedUp(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F100, Instant.now(), null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F100, Instant.now(), null))
                 .build();
     }
 
-    @PostMapping("/drop_off_done/{id}")
-    public ApiResponse<ParcelResponse> receivedAtPO(@PathVariable String id) {
+    @PostMapping("/drop_off_done")
+    public ApiResponse<ParcelResponse> receivedAtPO(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F098, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F098, null, null))
                 .build();
     }
 
-    @PostMapping("/dep_hub_arrived/{id}")
-    public ApiResponse<ParcelResponse> arrivedDepHub(@PathVariable String id) {
+    @PostMapping("/dep_hub_arrived")
+    public ApiResponse<ParcelResponse> arrivedDepHub(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F440, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F440, null, null))
                 .build();
     }
 
-    @PostMapping("/dep_hub_left/{id}")
-    public ApiResponse<ParcelResponse> leftDepHub(@PathVariable String id) {
+    @PostMapping("/dep_hub_left")
+    public ApiResponse<ParcelResponse> leftDepHub(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F450, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F450, null, null))
                 .build();
     }
 
-    @PostMapping("/soc_received/{id}")
-    public ApiResponse<ParcelResponse> enterSortingCenter(@PathVariable String id) {
+    @PostMapping("/soc_received")
+    public ApiResponse<ParcelResponse> enterSortingCenter(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F510, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F510, null, null))
                 .build();
     }
 
-    @PostMapping("/soc_left/{id}")
-    public ApiResponse<ParcelResponse> leftSortingCenter(@PathVariable String id) {
+    @PostMapping("/soc_left")
+    public ApiResponse<ParcelResponse> leftSortingCenter(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F540, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F540, null, null))
                 .build();
     }
 
-    @PostMapping("/arr_hub_received/{id}")
-    public ApiResponse<ParcelResponse> enterArrHub(@PathVariable String id) {
+    @PostMapping("/arr_hub_received")
+    public ApiResponse<ParcelResponse> enterArrHub(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F599, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F599, null, null))
                 .build();
     }
 
-    @PostMapping("/out_deli/{id}")
-    public ApiResponse<ParcelResponse> delivery(@PathVariable String id) {
+    @PostMapping("/out_deli")
+    public ApiResponse<ParcelResponse> delivery(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F600, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F600, null, null))
                 .build();
     }
 
-    @PostMapping("/delivered/{id}")
-    public ApiResponse<ParcelResponse> delivered(@PathVariable String id) {
+    @PostMapping("/delivered")
+    public ApiResponse<ParcelResponse> delivered(@RequestBody ParcelModifyRequest request) {
 
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F980, null, Instant.now()))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F980, null, Instant.now()))
                 .build();
     }
 
-    @PostMapping("/deli_failed/{id}")
-    public ApiResponse<ParcelResponse> deliFail(@PathVariable String id) {
+    @PostMapping("/deli_failed")
+    public ApiResponse<ParcelResponse> deliFail(@RequestBody ParcelModifyRequest request) {
         return ApiResponse.<ParcelResponse>builder()
-                .response(parcelService.addParcelRecord(id, TrackingCode.F981, null, null))
+                .response(parcelService.addParcelRecord(request, TrackingCode.F981, null, null))
                 .build();
     }
 
-    @GetMapping("/{id}/tracking")
-    public TrackingResponse getParcelTracking(@PathVariable String id) {
-        return parcelService.getTrackingResponseById(id);
+    @GetMapping("/tracking/{parcelId}")
+    public ApiResponse<TrackingResponse> getParcelTracking(@PathVariable String parcelId) {
+        return ApiResponse.<TrackingResponse>builder()
+                .response(parcelService.getTrackingResponseById(parcelId))
+                .build();
     }
 }

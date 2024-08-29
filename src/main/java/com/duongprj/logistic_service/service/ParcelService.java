@@ -1,6 +1,7 @@
 package com.duongprj.logistic_service.service;
 
 import com.duongprj.logistic_service.dto.parcel.request.ParcelCreationRequest;
+import com.duongprj.logistic_service.dto.parcel.request.ParcelModifyRequest;
 import com.duongprj.logistic_service.dto.parcel.response.ParcelResponse;
 import com.duongprj.logistic_service.dto.parcel.response.TrackingResponse;
 import com.duongprj.logistic_service.entity.Parcel;
@@ -54,8 +55,9 @@ public class ParcelService {
     }
 
     @PreAuthorize("hasRole('USER')")
-    public ParcelResponse cancelParcel(String id) {
+    public ParcelResponse cancelParcel(ParcelModifyRequest request) {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String id = request.getParcelId();
         String creatorUsername = parcelRepository.findCreatorUsernameById(id);
 
         boolean isAdminOrStaff = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
@@ -77,7 +79,8 @@ public class ParcelService {
     }
 
     @PreAuthorize("hasRole('STAFF')")
-    public ParcelResponse addParcelRecord(String parcelId, TrackingCode code, @Nullable Instant actualPickup, @Nullable Instant actualDelivery) {
+    public ParcelResponse addParcelRecord(ParcelModifyRequest request, TrackingCode code, @Nullable Instant actualPickup, @Nullable Instant actualDelivery) {
+        var parcelId = request.getParcelId();
         var context = SecurityContextHolder.getContext();
         var name = context.getAuthentication().getName();
 

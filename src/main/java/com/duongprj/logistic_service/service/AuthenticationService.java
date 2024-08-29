@@ -105,6 +105,5 @@ public class AuthenticationService {
             user.getRoles().forEach(stringJoiner::add);
 
         return stringJoiner.toString();
-
     }
 }
