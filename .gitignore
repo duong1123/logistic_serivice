@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Application configuration contains sensitive information ###
-src/main/resources/application.yaml
+src/main/resources/application.yam
